@@ -10,7 +10,7 @@ jobs:
         run: sudo apt-get install cowsay -y
       
       - name: Execute Cowsay Program
-        run: cowsay -f dragon "Run....RAWR" >> dragon.txt
+        run: cowsay -f dragon "Run Dragon....RAWR" >> dragon.txt
 
       - name: Upload Dragon text file
         uses: actions/upload-artifact@v7
