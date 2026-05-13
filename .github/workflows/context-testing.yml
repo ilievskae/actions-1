@@ -4,8 +4,9 @@ on:
     push:
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
+  dump_contexts_to_logs:
+    runs-on: ubuntu-latest
+    steps:
     - name: Dump Github Context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -30,5 +31,3 @@ jobs:
       env:
         RUNNER_CONTEXT: ${{ toJson(runner) }}
       run: echo "$RUNNER_CONTEXT"
-
-    
