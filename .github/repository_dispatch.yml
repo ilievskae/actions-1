@@ -1,0 +1,14 @@
+name: Workflow Filters
+on:
+  repository_dispatch:
+    types: [deploy-app]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Show deployment information
+        run: |
+          echo "Deployment version: ${{ github.event.client_payload.version }}"
+          echo "Environment: ${{ github.event.client_payload.environment }}"
