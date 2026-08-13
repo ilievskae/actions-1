@@ -1,0 +1,35 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build application
+        run: echo docker build -t my-app:${{ github.sha }} .
+
+      - name: Push image
+        run: |
+          # push image here
+
+      - name: Trigger infrastructure deployment
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/actions-1/my-infrastructure/dispatches \
+            -d '{
+              "event_type": "deploy-app",
+              "client_payload": {
+                "image": "test",
+                "tag": "${{ github.sha }}",
+                "source_repo": "test-repo"
+              }
+            }'
