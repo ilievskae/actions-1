@@ -2,6 +2,9 @@ name: Build
 
 on: [push]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,10 +21,11 @@ jobs:
 
       - name: Trigger infrastructure deployment
         run: |
-          curl -L \
+          curl -f -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/actions-1/my-infrastructure/dispatches \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/ilievskae/actions-1/dispatches \
             -d '{
               "event_type": "deploy-app",
               "client_payload": {
